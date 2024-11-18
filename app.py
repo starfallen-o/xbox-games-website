@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 app.register_blueprint(games_bp)
 
-secret_value = globals.secret_value
+# secret_value = globals.secret_value
 
 @app.route('/', methods=['GET'])
 def index():
