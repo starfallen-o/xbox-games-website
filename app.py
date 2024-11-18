@@ -1,9 +1,7 @@
 from flask import Flask, render_template
 import os
-import http.server
 
-game_app = Flask(__name__)
-app = game_app
+app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def index():
