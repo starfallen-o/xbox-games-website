@@ -13,7 +13,7 @@ secret_value = globals.secret_value
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('/html/index.html', name=secret_value)
+    return render_template('/html/index.html')
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 4999))
