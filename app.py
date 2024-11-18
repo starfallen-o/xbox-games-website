@@ -9,11 +9,11 @@ app = Flask(__name__)
 
 app.register_blueprint(games_bp)
 
-secret = globals.secret_value
+secret_value = globals.secret_value
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('/html/index.html', secret=secret)
+    return render_template('/html/index.html', name=secret_value)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 4999))
