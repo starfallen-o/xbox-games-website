@@ -1,12 +1,14 @@
 from flask import Flask, render_template
 import os
+import http.server
 
-app = Flask(__name__)
+game_app = Flask(__name__)
+app = game_app
 
 @app.route('/', methods=['GET'])
 def index():
     return render_template('/html/index.html')
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 4999))
+    port = int(os.environ.get("PORT", 8000))
     app.run(debug=True, host='0.0.0.0', port=port)
