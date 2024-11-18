@@ -1,6 +1,5 @@
 from flask import Flask, render_template
 import os
-import globals
 
 # Blueprints
 from blueprints.games.games import games_bp
@@ -8,8 +7,6 @@ from blueprints.games.games import games_bp
 app = Flask(__name__)
 
 app.register_blueprint(games_bp)
-
-# secret_value = globals.secret_value
 
 @app.route('/', methods=['GET'])
 def index():
