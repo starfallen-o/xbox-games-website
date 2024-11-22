@@ -78,4 +78,4 @@ jobs:
         
       - name: 'Unzip output tar file to wwwroot'
         run: |
-          tar -xzvf site/wwwroot/output.tar.gz -C site/wwwroot/ 
+          tar -xzvf /site/wwwroot/output.tar.gz -C /site/wwwroot/ 
