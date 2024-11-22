@@ -75,7 +75,3 @@ jobs:
         with:
           app-name: 'b00858494gameswebsite'
           slot-name: 'Production'
-        
-      - name: 'Unzip output tar file to wwwroot'
-        run: |
-          tar -xzvf /site/wwwroot/output.tar.gz -C /site/wwwroot/ 
