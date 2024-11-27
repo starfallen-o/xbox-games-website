@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>Xbox Games</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-primary navbar-dark fixed-top">
+        <span class="navbar-brand" style="margin-left: 10px">
+            Xbox Games
+        </span>
+        <ul class="navbar-nav">
+            <li class="navbar-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link" href="/games">Games</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Display Game Details -->
+    <div class="container mt-5 pt-5">
+        <h1 id="gameTitle" class="text-center">Loading...</h1>
+        <div id="gameDetails" class="mt-4"></div>
+
+        
+        <div id="mediaSection" class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+            <!-- Media will be dynamically inserted here -->
+        </div>
+    </div>
+
+    
+    <div class="container mt-5 flex">
+        <button id="toggleUploadMediaForm" class="btn btn-primary">Upload Media</button>
+        <button id="deleteGameButton" class="btn btn-danger float-end">Delete Game</button>
+        <button id="toggleEditForm" class="btn btn-secondary float-end">Edit Game Details</button>
+    </div>
+
+    <!-- Edit Form -->
+    <div class="container mt-5">
+        <form id="editGameForm" class="mb-5 mt-5 p-3 bg-secondary text-white rounded-5" style="display: none">
+            <h2 class="text-center mb-5">Edit Game</h2>
+            <div class="mb-3">
+                <input type="text" class="form-control" id="editTitle" name="title" placeholder="Title" required>
+            </div>
+            <div class="mb-3">
+                <textarea class="form-control" id="editDescription" name="description" placeholder="Description" required></textarea>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" id="editCost" name="cost" placeholder="Cost" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" id="editReleaseDate" name="release_date" placeholder="Release Date" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" id="editGenre" name="genre" placeholder="Genre" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" id="editPublisher" name="publisher" placeholder="Publisher" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" id="editAgeRating" name="age_rating" placeholder="Age Rating" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+
+    <!-- Upload New Media -->
+    <div class="container mt-5"></div>
+        <form id="uploadMediaForm" class="mb-5 mt-5 p-3 bg-secondary text-white rounded-5" style="display: none">
+            <div class="mb-3">
+                <label for="mediaFile" class="form-label">Add A Media File</label>
+                <input type="file" class="form-control" id="mediaFile" name="mediaFile" required>
+            </div>
+            <button type="submit" class="btn btn-success">Upload Media</button>
+        </form>
+    </div>
+
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Fetch game details script -->
+    <script src="/static/game-details.js"></script>
+
+    <!-- Edit Game Script -->
+    <script src="/static/edit-game.js"></script>
+
+    <!-- Upload Game Script -->
+    <script src="/static/upload-media.js"></script>
+    
+</body>
+</html>
