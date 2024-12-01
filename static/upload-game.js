@@ -2,13 +2,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Toggle Upload Form
     const form = document.getElementById("uploadForm");
+    const toggleUploadForm = document.getElementById("toggleUploadForm");
 
-    document.getElementById("toggleUploadForm").addEventListener("click", function () {
+    toggleUploadForm.addEventListener("click", function () {
         const button = this;
 
         if (form.style.display === "none") {
             form.style.display = "block";
             button.textContent = "Cancel";
+            window.scrollTo({
+                top: form.offsetTop,
+                behavior: "smooth"
+            });
         } else {
             form.style.display = "none";
             button.textContent = "Upload A Game";
@@ -36,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Game uploaded successfully!");
             form.reset();
             loadGames();
+            toggleUploadForm.click();
         } else {
             alert("Failed to upload game.")
         }

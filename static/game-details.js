@@ -2,11 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const gameId = window.location.pathname.split('/').pop();
     
-    async function fetchGameDetails(){
+    window.fetchGameDetails = async function() {
         const response = await fetch(`/api/v1/games/${gameId}`);
         if (response.ok) {
             const game = await response.json();
-
 
             document.getElementById('editTitle').value = game.title;
             document.getElementById('editDescription').value = game.description;
@@ -36,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             document.getElementById('gameTitle').textContent = 'Game Not Found';
         }
+
     }
 
     function displayGameDetails(game) {
@@ -53,8 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
             <p><strong>Genre:</strong> ${game.genre}</p>
             <p><strong>Publisher:</strong> ${game.publisher}</p>
             <p><strong>Age Rating:</strong> ${game.age_rating}</p>
-            <br>
-            <h5 class="bg-primary text-light p-2">Media<h5>
         `;
 
         document.getElementById('gameDetails').innerHTML = detailsHtml;
@@ -62,13 +60,18 @@ document.addEventListener("DOMContentLoaded", () => {
         const mediaSection = document.getElementById('mediaSection');
         mediaSection.innerHTML = "";
         game.media.forEach(url => {
+
             const mediaName = url.split('_').pop();
+
             const mediaElement = `
                 <div class="col">
                     <div class="card">
-                        <img src="${url}" class="card-img-top" alt="${mediaName}">
+                        <a href="${url}">
+                            ${mediaType(url, mediaName)}
+                        </a>
                         <div class="card-body">
-                            <p class="card-text text-center">${mediaName}</p>
+                            <p class="card-text text-center">${mediaName.replace(/%20/g, ' ').split('.')[0]}</p>
+                            <p class="car-text text-center" id="contentType"></p>
                         </div>
                         <button class="btn btn-danger btn-sm delete-media-button text-center" data-url="${url}">Delete</button>
                     </div>
@@ -88,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (response.ok) {
             alert("Media deleted successfully");
-            await fetchGameDetails();
+            fetchGameDetails();
         } else {
             alert("Failed to delete media");
         }
@@ -102,11 +105,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (response.ok) {
             alert("Game and its media have been deleted successfully");
-            window.location.href = '/games';
+            window.location.href = '';
         } else {
             const error = await response.json();
             alert(`Failed to delete game: ${error.message}`);
         }
+    }
+
+    function mediaType(url, mediaName) {
+        const fileExtension = mediaName.split('.').pop();
+
+        videoTypes = ["mp4", "webm", "ogg"]
+
+        let mediaTag = "";
+
+        if (videoTypes.includes(fileExtension)) {
+            mediaTag = `<video src="${url}" class="card-img-top img-fluid img-thumbnail" alt="${mediaName}" style="object-fit: cover; width: 100%; height: 300px;">`
+        } else {
+            mediaTag = `<img src="${url}" class="card-img-top img-fluid img-thumbnail" alt="${mediaName}" style="object-fit: cover; width: 100%; height: 300px;">`
+        }
+
+        return mediaTag;
     }
 
     fetchGameDetails();

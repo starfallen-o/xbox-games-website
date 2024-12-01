@@ -1,14 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     const gameId = window.location.pathname.split('/').pop();
+    const toggleEditForm = document.getElementById("toggleEditForm");
 
-    document.getElementById("toggleEditForm").addEventListener("click", function () {
+    toggleEditForm.addEventListener("click", function () {
         const form = document.getElementById("editGameForm");
         const button = this;
 
         if (form.style.display === "none") {
             form.style.display = "block";
             button.textContent = "Cancel Edit";
+            window.scrollTo({
+                top: form.offsetTop,
+                behavior: "smooth"
+            });
         } else {
             form.style.display = "none";
             button.textContent = "Edit Game";
@@ -46,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (response.ok) {
                 alert("Game updated successfully!")
                 fetchGameDetails();
-                document.getElementById("toggleEditForm").click();
+                toggleEditForm.click();
             } else {
                 const error = await response.json();
                 alert(`Error: ${error.message}`);

@@ -1,7 +1,8 @@
 from flask import Blueprint, request, jsonify
 from azure.cosmos import exceptions
-from azure.core.exceptions import ResourceNotFoundError
+from azure.storage.blob import ContentSettings
 import uuid
+import urllib.parse
 import config
 
 # Blueprint
@@ -17,6 +18,7 @@ blob_container_client = config.blob_container_client
 def upload_media(game_id):
     game_id = request.form.get('gameId')
     file = request.files.get('mediaFile')
+    file_type = file.content_type or "application/octet-stream"
 
     if not game_id or not file:
         return jsonify({"message": "Game ID and media file are required."}), 400
@@ -24,7 +26,10 @@ def upload_media(game_id):
     try:
         file_name = f"{uuid.uuid4()}_{file.filename}"
         blob_client = blob_container_client.get_blob_client(file_name)
-        blob_client.upload_blob(file, overwrite=True)
+        blob_client.upload_blob(file, 
+                                overwrite=True,
+                                content_settings = ContentSettings(content_type=file_type)
+                                )
 
         media_url = f"{blob_client.url}"
 
@@ -62,13 +67,17 @@ def delete_media(game_id):
             games_container.replace_item(item=game_id, body=game)
 
             blob_name = media_url.split('/')[-1]
+            blob_name = urllib.parse.unquote(blob_name)
             blob_client = blob_container_client.get_blob_client(blob_name)
             blob_client.delete_blob()
 
             return jsonify({"message": "Media deleted successfully"}), 200
         else:
-            return jsonify({"error": "Media not found"}), 400
-    except ResourceNotFoundError:
+            return jsonify({"error": "Media not found"}), 404
+    except exceptions.CosmosResourceNotFoundError as error:
+        print("Error: Game not found")
+        print(f"CRNF error details: {error}")
         return jsonify({"error": "Game not found"}), 404
     except Exception as e:
+        print(f" 500 error details: {e}")
         return jsonify({"error": str(e)}), 500

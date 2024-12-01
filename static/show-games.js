@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     // Show all games
-    async function loadGames() {
+    window.loadGames = async function() {
         const response = await fetch('/api/v1/games');
         const games = await response.json();
         const gamesList = document.getElementById("gameList")
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const gameCard = document.createElement('div');
             gameCard.classList.add('col');
 
-            mediaHtml= `<img src="${game.media[0]}" class="img-fluid mb-2" alt="${game.title}" style="max-height: 150px;"`
+            mediaHtml= `<img src="${game.media[0]}" class="img-fluid img-thumbnail mb-2" alt="${game.title}" style="object-fit: cover; width: 100%; height: 200px;"`
 
             gameCard.innerHTML = `
                 <div class="card h-100">
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div class="card-body">
                             <h5 class="card-title text-center">${game.title}</h5>
                             <p class="card-text text-center">${game.genre}</p>
-                            <p class="card-text text-center">£${game.cost}</p>
+                            <p class="card-text text-center border-top">£${game.cost}</p>
                         </div>
                     </a>
                 </div>

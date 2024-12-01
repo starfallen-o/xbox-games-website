@@ -2,14 +2,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const gameId = window.location.pathname.split('/').pop();
 
+    const toggleUploadMediaForm = document.getElementById('toggleUploadMediaForm');
+
     // Toggle Upload Form
-    document.getElementById('toggleUploadMediaForm').addEventListener("click", function () {
+    toggleUploadMediaForm.addEventListener("click", function () {
         const form = document.getElementById('uploadMediaForm');
         const button = this;
 
         if (form.style.display === "none") {
             form.style.display = "block";
             button.textContent = "Cancel Upload";
+            window.scrollTo({
+                top: form.offsetTop,
+                behavior: "smooth"
+            });
         } else {
             form.style.display = "none";
             button.textContent = "Upload Media";
@@ -39,6 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
             if (response.ok) {
                 alert("Media file uploaded successfully!");
                 mediaFileInput.value = "";
+                fetchGameDetails();
+                toggleUploadMediaForm.click();
             } else {
                 const error = await response.json();
                 alert(`Error: ${error.message}`);

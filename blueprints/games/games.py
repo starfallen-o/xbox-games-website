@@ -1,5 +1,6 @@
 from flask import Blueprint, Flask, jsonify, request
 from azure.cosmos import exceptions
+import urllib.parse
 import uuid
 import config
 
@@ -108,6 +109,7 @@ def delete_game(game_id):
 
         for media_url in game.get("media", []):
             blob_name = media_url.split('/')[-1]
+            blob_name = urllib.parse.unquote(blob_name)
             blob_client = blob_container_client.get_blob_client(blob_name)
             blob_client.delete_blob()
 

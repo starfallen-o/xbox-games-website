@@ -6,14 +6,12 @@ import config
 # Blueprints
 from blueprints.games.games import games_bp
 from blueprints.media.media import media_bp
-from blueprints.auth.auth import auth_bp
 
 app = Flask(__name__)
 CORS(app)
 
 app.register_blueprint(games_bp)
 app.register_blueprint(media_bp)
-app.register_blueprint(auth_bp)
 
 @app.route('/', methods=['GET'])
 def index():
