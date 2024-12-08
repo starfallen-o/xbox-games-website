@@ -67,10 +67,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="col">
                     <div class="card">
                         <a href="${url}">
-                            ${mediaType(url, mediaName)}
+                            ${mediaTag(url, mediaName)}
                         </a>
                         <div class="card-body">
                             <h5 class="card-text text-center">${mediaName.replace(/%20/g, ' ').split('.')[0]}</h5>
+                            <p class="card-footer text-center">${mediaType(mediaName)}</p>
                         </div>
                         <button class="btn btn-danger btn-sm delete-media-button text-center" data-url="${url}">Delete</button>
                     </div>
@@ -111,10 +112,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function mediaType(url, mediaName) {
+    function mediaTag(url, mediaName) {
         const fileExtension = mediaName.split('.').pop();
 
-        videoTypes = ["mp4", "webm", "ogg"]
+        videoTypes = ["mp4", "webm", "mp3", "wav", "ogg"];
 
         let mediaTag = "";
 
@@ -125,6 +126,21 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         return mediaTag;
+    }
+
+    function mediaType(mediaName) {
+        const fileExtension = mediaName.split('.').pop();
+
+        videoTypes = ["mp4", "webm", "mp3", "wav", "ogg"];
+
+        let mediaType = "";
+
+        if (videoTypes.includes(fileExtension)) {
+            mediaType = "Video / Audio";
+        } else {
+            mediaType = "Image";
+        }
+        return mediaType;
     }
 
     fetchGameDetails();
