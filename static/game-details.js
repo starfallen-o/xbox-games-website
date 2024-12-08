@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (response.ok) {
             alert("Game and its media have been deleted successfully");
-            window.location.href = '';
+            window.location.href = '/';
         } else {
             const error = await response.json();
             alert(`Failed to delete game: ${error.message}`);
