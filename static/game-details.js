@@ -70,8 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             ${mediaType(url, mediaName)}
                         </a>
                         <div class="card-body">
-                            <p class="card-text text-center">${mediaName.replace(/%20/g, ' ').split('.')[0]}</p>
-                            <p class="car-text text-center" id="contentType"></p>
+                            <h5 class="card-text text-center">${mediaName.replace(/%20/g, ' ').split('.')[0]}</h5>
                         </div>
                         <button class="btn btn-danger btn-sm delete-media-button text-center" data-url="${url}">Delete</button>
                     </div>
