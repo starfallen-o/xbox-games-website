@@ -2,5 +2,5 @@ flask==3.0.3
 flask-cors==5.0.0
 azure-cosmos==4.8.0
 azure-storage-blob==12.24.0
-azure-identity==1.19.0
+azure-identity==1.17.1
 azure-keyvault-secrets==4.9.0
